@@ -2,33 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
 class PhotoViewSwipe extends StatefulWidget {
-  PhotoViewSwipe({
-    Key key,
-    @required this.imageProvider,
-    this.dragBgColor, // default Colors.black.withOpacity(0.5)
-    this.dragDistance, // default 160
+  PhotoViewSwipe(
+      {Key key,
+      @required this.imageProvider,
+      this.dragBgColor, // default Colors.black.withOpacity(0.5)
+      this.dragDistance, // default 160
 
-    // Standard photo_view
-    this.loadingBuilder,
-    this.loadFailedChild,
-    this.backgroundDecoration,
-    this.gaplessPlayback = false,
-    this.heroAttributes,
-    this.scaleStateChangedCallback,
-    this.enableRotation = false,
-    this.controller,
-    this.maxScale,
-    this.minScale,
-    this.initialScale,
-    this.basePosition,
-    this.scaleStateCycle,
-    this.onTapUp,
-    this.onTapDown,
-    this.customSize,
-    this.gestureDetectorBehavior,
-    this.tightMode,
-    this.filterQuality,
-  })  : child = null,
+      // Standard photo_view
+      this.loadingBuilder,
+      this.loadFailedChild,
+      this.backgroundDecoration,
+      this.gaplessPlayback = false,
+      this.heroAttributes,
+      this.scaleStateChangedCallback,
+      this.enableRotation = false,
+      this.controller,
+      this.maxScale,
+      this.minScale,
+      this.initialScale,
+      this.basePosition,
+      this.scaleStateCycle,
+      this.onTapUp,
+      this.onTapDown,
+      this.customSize,
+      this.gestureDetectorBehavior,
+      this.tightMode,
+      this.filterQuality,
+      this.onPop})
+      : child = null,
         childSize = null,
         super(key: key);
 
@@ -58,6 +59,7 @@ class PhotoViewSwipe extends StatefulWidget {
   final HitTestBehavior gestureDetectorBehavior;
   final bool tightMode;
   final FilterQuality filterQuality;
+  final Function onPop;
 
   @override
   _PhotoViewSwipeState createState() => _PhotoViewSwipeState();
@@ -107,6 +109,9 @@ class _PhotoViewSwipeState extends State<PhotoViewSwipe> {
                   ? (details) {
                       double pixelsPerSecond = _position.dy.abs();
                       if (pixelsPerSecond > (widget.dragDistance ?? 160)) {
+                        if (widget.onPop != null) {
+                          widget.onPop();
+                        }
                         Navigator.pop(context);
                       } else {
                         setState(() => _position = Offset(0.0, 0.0));
