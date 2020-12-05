@@ -116,17 +116,17 @@ class _PhotoViewSwipeState extends State<PhotoViewSwipe> {
               child: Container(
                 decoration: _position.dy == 0.0
                     ? (widget.backgroundDecoration ??
-                        BoxDecoration(color: Colors.black))
+                        const BoxDecoration(color: Colors.black))
                     : null,
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: PhotoView(
                   imageProvider: widget.imageProvider,
                   backgroundDecoration:
-                      BoxDecoration(color: Colors.transparent),
+                      const BoxDecoration(color: Colors.transparent),
                   scaleStateController: scaleStateController,
                   loadingBuilder: widget.loadingBuilder,
-                  loadFailedChild: widget.loadFailedChild,
+                  //loadFailedChild: widget.loadFailedChild,
                   gaplessPlayback: widget.gaplessPlayback,
                   heroAttributes: widget.heroAttributes,
                   scaleStateChangedCallback: widget.scaleStateChangedCallback,
