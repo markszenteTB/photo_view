@@ -28,7 +28,8 @@ class PhotoViewSwipe extends StatefulWidget {
       this.gestureDetectorBehavior,
       this.tightMode,
       this.filterQuality,
-      this.onPop})
+      this.onPop,
+      this.onReset})
       : child = null,
         childSize = null,
         super(key: key);
@@ -60,6 +61,7 @@ class PhotoViewSwipe extends StatefulWidget {
   final bool tightMode;
   final FilterQuality filterQuality;
   final Function onPop;
+  final Function onReset;
 
   @override
   _PhotoViewSwipeState createState() => _PhotoViewSwipeState();
@@ -114,6 +116,9 @@ class _PhotoViewSwipeState extends State<PhotoViewSwipe> {
                         }
                         Navigator.pop(context);
                       } else {
+                        if (widget.onReset != null) {
+                          widget.onReset();
+                        }
                         setState(() => _position = Offset(0.0, 0.0));
                       }
                     }
