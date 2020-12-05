@@ -29,7 +29,8 @@ class PhotoViewSwipe extends StatefulWidget {
       this.tightMode,
       this.filterQuality,
       this.onPop,
-      this.onReset})
+      this.onReset,
+      this.onUpdate})
       : child = null,
         childSize = null,
         super(key: key);
@@ -62,6 +63,7 @@ class PhotoViewSwipe extends StatefulWidget {
   final FilterQuality filterQuality;
   final Function onPop;
   final Function onReset;
+  final Function onUpdate;
 
   @override
   _PhotoViewSwipeState createState() => _PhotoViewSwipeState();
@@ -103,6 +105,9 @@ class _PhotoViewSwipeState extends State<PhotoViewSwipe> {
             child: GestureDetector(
               onVerticalDragUpdate: !_isZoomed
                   ? (details) {
+                      if (widget.onUpdate != null) {
+                        widget.onUpdate();
+                      }
                       setState(() => _position =
                           Offset(0.0, _position.dy + details.delta.dy));
                     }
